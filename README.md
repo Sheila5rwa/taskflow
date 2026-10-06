@@ -7,8 +7,8 @@ Developed for the **Teknika & Igire Rwanda Organization** Technical Assessment.
 ---
 
 ## 🚀 Live Demo & Repository
-- **Live Deployed App:** [Live App Link](https://your-username.github.io/taskflow/) *(Replace with your deployed URL)*
-- **GitHub Repository:** [https://github.com/your-username/taskflow](https://github.com/your-username/taskflow) *(Replace with your repo URL)*
+- **Live Deployed App:** [https://sheila5rwa.github.io/taskflow/](https://sheila5rwa.github.io/taskflow/)
+- **GitHub Repository:** [https://github.com/Sheila5rwa/taskflow](https://github.com/Sheila5rwa/taskflow)
 
 ---
 
