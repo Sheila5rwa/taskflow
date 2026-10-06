@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TaskFlow - A modern, accessible to-do list application powered by Firebase Cloud Firestore." />
+  <title>TaskFlow — To-Do List</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Section -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true">✓</span>
+          <h1 class="brand-title">TaskFlow</h1>
+        </div>
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+          <span id="theme-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+      <p class="brand-subtitle">Organize, focus, and accomplish your day.</p>
+    </header>
+
+    <!-- Main Application Section -->
+    <main class="app-main">
+      <!-- Task Creation Form -->
+      <form id="task-form" class="task-form" novalidate>
+        <label for="task-input" class="sr-only">New task title</label>
+        <div class="input-group">
+          <input
+            type="text"
+            id="task-input"
+            class="task-input"
+            name="taskTitle"
+            placeholder="What needs to be done?"
+            maxlength="100"
+            autocomplete="off"
+            aria-describedby="form-error"
+          />
+          <button type="submit" id="add-task-btn" class="btn btn-primary">
+            <span>Add Task</span>
+          </button>
+        </div>
+        <p id="form-error" class="error-message hidden" role="alert" aria-live="assertive"></p>
+      </form>
+
+      <!-- App Status Banner (Loading & Network/Firestore Errors) -->
+      <div id="loading-state" class="state-banner loading-banner" role="status" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Loading your tasks...</span>
+      </div>
+
+      <div id="error-state" class="state-banner error-banner hidden" role="alert" aria-live="assertive">
+        <span class="error-icon" aria-hidden="true">⚠️</span>
+        <span id="error-message">Unable to connect to database. Please check your connection.</span>
+        <button id="retry-btn" type="button" class="btn btn-retry hidden">Retry</button>
+      </div>
+
+      <!-- Controls: Filters & Summary -->
+      <section class="task-controls" aria-label="Task controls and filters">
+        <div class="counter-wrapper">
+          <span id="task-counter" class="task-counter" aria-live="polite">0 tasks left</span>
+        </div>
+
+        <div class="filter-group" role="group" aria-label="Filter tasks">
+          <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">
+            All
+          </button>
+          <button type="button" class="filter-btn" data-filter="active" aria-pressed="false">
+            Active
+          </button>
+          <button type="button" class="filter-btn" data-filter="completed" aria-pressed="false">
+            Completed
+          </button>
+        </div>
+
+        <button type="button" id="clear-completed-btn" class="btn-text" aria-label="Clear all completed tasks">
+          Clear Completed
+        </button>
+      </section>
+
+      <!-- Task List Container -->
+      <section class="task-list-section" aria-label="Task list container">
+        <ul id="task-list" class="task-list" aria-label="Tasks">
+          <!-- Tasks will be rendered dynamically by JavaScript -->
+        </ul>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state hidden">
+          <div class="empty-illustration" aria-hidden="true">📋</div>
+          <p class="empty-title" id="empty-title">No tasks found</p>
+          <p class="empty-hint" id="empty-hint">Add a new task above to stay on top of your priorities.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Accessible Confirmation Dialog for Task Deletion -->
+    <dialog id="delete-dialog" class="confirm-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-desc">
+      <div class="dialog-content">
+        <h2 id="dialog-title" class="dialog-title">Delete Task</h2>
+        <p id="dialog-desc" class="dialog-desc">Are you sure you want to delete this task? This action cannot be undone.</p>
+        <div class="dialog-actions">
+          <button type="button" id="dialog-cancel-btn" class="btn btn-secondary">Cancel</button>
+          <button type="button" id="dialog-confirm-btn" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>TaskFlow &bull; Technical Assessment for Teknika &amp; Igire Rwanda Organization</p>
+    </footer>
+  </div>
+
+  <!-- Firebase Configuration & Main Application Script (ES Module) -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
