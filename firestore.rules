@@ -1,0 +1,33 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Security rules for the 'tasks' collection in TaskFlow
+    match /tasks/{taskId} {
+      
+      // Helper function to check if the incoming task has valid shape
+      function isValidTask(data) {
+        return data.keys().hasAll(['title', 'completed']) &&
+               data.title is string &&
+               data.title.size() > 0 &&
+               data.title.size() <= 100 &&
+               data.completed is bool;
+      }
+
+      // Allow anyone to read tasks (newest to oldest display)
+      allow read: if true;
+
+      // Allow task creation only if data matches the expected schema
+      allow create: if isValidTask(request.resource.data) &&
+                       request.resource.data.completed == false &&
+                       request.resource.data.createdAt is timestamp;
+
+      // Allow updates to task title and completion status with validation
+      allow update: if isValidTask(request.resource.data);
+
+      // Allow deleting existing tasks
+      allow delete: if true;
+    }
+  }
+}
